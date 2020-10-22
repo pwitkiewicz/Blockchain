@@ -1,9 +1,13 @@
+package app.singlethreaded;
+
+import app.SerializationUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class SingleThreadedRunner {
+    public static void run() {
         System.out.println("Enter how many zeros the hash must start with: ");
 
         Scanner scanner = new Scanner(System.in);

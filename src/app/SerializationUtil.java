@@ -1,6 +1,8 @@
+package app;
+
 import java.io.*;
 
-class SerializationUtil {
+public class SerializationUtil {
     /**
      * Serialize the given object to the file
      */

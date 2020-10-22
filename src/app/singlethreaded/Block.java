@@ -1,3 +1,7 @@
+package app.singlethreaded;
+
+import app.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,7 +34,7 @@ public class Block implements Serializable {
     }
 
     public String toHash() {
-        return "Block:\n" +
+        return "app.singlethread.Block:\n" +
                 "Id: " + id + "\n" +
                 "Timestamp: " + timeStamp + "\n" +
                 "Magic number: " + magicNumber + "\n" +
@@ -39,7 +43,7 @@ public class Block implements Serializable {
     }
 
     String toValidate() {
-        return "Block:\n" +
+        return "app.singlethread.Block:\n" +
                 "Id: " + id + "\n" +
                 "Timestamp: " + timeStamp + "\n" +
                 "Magic number: " + magicNumber + "\n" +
@@ -53,6 +57,6 @@ public class Block implements Serializable {
     @Override
     public String toString() {
         return toHash() + "Hash of the block:\n" + hash + "\n" +
-                "Block was generating for " + String.format("%.2f", genTime) + " seconds";
+                "app.singlethread.Block was generating for " + String.format("%.2f", genTime) + " seconds";
     }
 }
