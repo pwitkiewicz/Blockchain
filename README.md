@@ -1,4 +1,4 @@
-# app.singlethreaded.Blockchain
+# Blockchain
 My blockchain project from Jetbrains Academy site.
 
 
