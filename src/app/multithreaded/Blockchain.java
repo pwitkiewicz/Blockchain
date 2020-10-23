@@ -12,6 +12,7 @@ public class Blockchain implements Serializable {
     private static final long serialVersionUID = 1L;
     private final List<Block> blockchain;
     private int blockCount = 0;
+    private int zeroCount = 0;
     private String filename;
 
     public Blockchain(String filename) {
@@ -32,6 +33,13 @@ public class Blockchain implements Serializable {
         }
     }
 
+    public void setZeroCount(int zeroCount) {
+        this.zeroCount = zeroCount;
+    }
+
+    public int getZeroCount() {
+        return zeroCount;
+    }
 
     private String getHash(String toHash) {
         return StringUtil.applySha256(toHash);

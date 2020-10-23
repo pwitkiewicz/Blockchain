@@ -8,20 +8,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Would you like to run single or multi threaded version of the program (S/M)? :");
 
-        //Scanner scanner = new Scanner(System.in);
-        String answer = "M";
-        //scanner.close();
-
-        if(answer.equals("S")) {
-            SingleThreadedRunner.run();
-        }
-        else if(answer.equals("M")) {
+        // run multi threaded version on default
+        if(args.length == 0 || args[0].equals("-M")) {
             MultiThreadedRunner.run();
         }
+        else if(args[0].equals("-S")) {
+            SingleThreadedRunner.run();
+        }
         else {
-            System.out.println("Wrong parameter, terminating.");
+            System.out.println("Wrong parameter (use -S for single-threaded version or -M for multithreaded. Terminating.");
         }
     }
 }

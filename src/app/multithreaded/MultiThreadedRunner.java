@@ -17,35 +17,37 @@ public class MultiThreadedRunner {
         File blockchainDataFile = new File(filename);
         Blockchain blockchain = null;
 
-        /*if(blockchainDataFile.exists() && blockchainDataFile.isFile()) {
+        if(blockchainDataFile.exists() && blockchainDataFile.isFile()) {
             try {
                 blockchain = (Blockchain) SerializationUtil.deserialize(filename);
             } catch (ClassNotFoundException | IOException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
 
-        //if(blockchain == null || !blockchain.validate()) {
+        if(blockchain == null || !blockchain.validate()) {
             blockchain = new Blockchain(filename);
-        //}
+        }
 
-        int numberOfZeros = 1;
+        // seting initial value of zeros for hash string
+        blockchain.setZeroCount(1);
+
         ExecutorService executor = Executors.newFixedThreadPool(8);
 
-        double secondsThreshold = 60;
+        double secondsThreshold = 30;
 
         for (int i = 0; i < 10; i++) {
-            List<Miner> miners = makeMinerList(blockchain, numberOfZeros);
+            List<Miner> miners = makeMinerList(blockchain);
             try {
                 blockchain.addBlock(executor.invokeAny(miners));
                 System.out.println(blockchain.getBlock(blockchain.getBlockCount()));
 
                 if (blockchain.getBlock(blockchain.getBlockCount()).getGenTime() >= secondsThreshold) {
-                    numberOfZeros -= 1;
-                    System.out.printf("N was decreased to %s\n\n", numberOfZeros);
+                    blockchain.setZeroCount(blockchain.getZeroCount() - 1);
+                    System.out.printf("N was decreased to %s\n\n", blockchain.getZeroCount());
                 } else {
-                    numberOfZeros += 1;
-                    System.out.printf("N was increased to %s\n\n", numberOfZeros);
+                    blockchain.setZeroCount(blockchain.getZeroCount() + 1);
+                    System.out.printf("N was increased to %s\n\n", blockchain.getZeroCount());
                 }
 
             } catch (InterruptedException | ExecutionException | IOException exc) {
@@ -55,10 +57,10 @@ public class MultiThreadedRunner {
         executor.shutdown();
     }
 
-    public static List<Miner> makeMinerList(Blockchain currentBlockchain, int numberOfZeros) {
+    private static List<Miner> makeMinerList(Blockchain currentBlockchain) {
         List<Miner> minerList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
-            Miner miner = new Miner(i, currentBlockchain, numberOfZeros);
+            Miner miner = new Miner(i, currentBlockchain, currentBlockchain.getZeroCount());
             minerList.add(miner);
         }
         return minerList;
