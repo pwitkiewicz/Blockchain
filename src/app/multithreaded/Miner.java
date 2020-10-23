@@ -27,7 +27,7 @@ public class Miner implements Callable<Block> {
         Random random = new Random();
 
         while(true) {
-            Block temp = new Block(blockchain, random.nextInt(Integer.MAX_VALUE), minerNum);
+            Block temp = new Block(blockchain, random.nextLong(), minerNum);
 
             if(temp.getHash().substring(0, zeroCount).equals(match)) {
                 long endTime = System.nanoTime();
