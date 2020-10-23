@@ -7,8 +7,8 @@ My blockchain project from Jetbrains Academy site.
 * Blocks with proof of work
 * Serialization for singlethreaded.Blockchain class
 * Initial version for multithreaded version
+* Serialization for multithreaded.Blockchain class
+* Launching multi- or single-threaded version based on command line argument
 
 ## To do
-* Multithreaded serialization
-* Launching multi- or single-threaded version based on command line argument
-* ...
+* incorporating messages into the blockchain
