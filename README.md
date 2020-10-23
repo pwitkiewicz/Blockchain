@@ -10,4 +10,5 @@ My blockchain project from Jetbrains Academy site.
 
 ## To do
 * Multithreaded serialization
+* Launching multi- or single-threaded version based on command line argument
 * ...
