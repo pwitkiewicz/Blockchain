@@ -22,7 +22,7 @@ public class Blockchain implements Serializable {
     }
 
     public Block getBlock(int id) {
-        return blockchain.get(id);
+        return blockchain.get(id-1);
     }
 
     public void addBlock() throws IOException {
@@ -35,7 +35,7 @@ public class Blockchain implements Serializable {
         long i = 0;
 
         if(zeroCount == 0) {
-            Block temp = new Block(this, blockCount, 0);
+            Block temp = new Block(this, 0);
             this.blockchain.add(temp);
 
             blockCount++;
@@ -45,7 +45,7 @@ public class Blockchain implements Serializable {
         }
 
         while(true) {
-            Block temp = new Block(this, blockCount, i++);
+            Block temp = new Block(this, i++);
             if(temp.getHash().substring(0, zeroCount).equals(match)) {
 
                 long endTime = System.nanoTime();

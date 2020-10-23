@@ -40,7 +40,7 @@ public class SingleThreadedRunner {
             }
         }
 
-        for (int i = 0; i < blockchain.getBlockCount(); i++) {
+        for (int i = 1; i <= blockchain.getBlockCount(); i++) {
             System.out.println(blockchain.getBlock(i)+"\n");
         }
 

@@ -1,6 +1,6 @@
-package app.singlethreaded;
+package app.multithreaded;
 
-import app.*;
+import app.StringUtil;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,17 +13,19 @@ public class Block implements Serializable {
     private final String prevBlockHash;
     private final String hash;
     private final long magicNumber;
+    private final long minerNumber;
     private double genTime;
 
-    public Block(Blockchain parent, long magicNumber) {
+    public Block(Blockchain parent, long magicNumber, long minerNumber) {
         this.parent = parent;
-        this.id = parent.getBlockCount()+1;
+        this.id = parent.getBlockCount() + 1;
         this.magicNumber = magicNumber;
+        this.minerNumber = minerNumber;
 
         if(this.id == 1) {
             this.prevBlockHash = "0";
         } else {
-            this.prevBlockHash = parent.getBlock(this.id - 1).getHash();
+            this.prevBlockHash = parent.getBlock(id - 1).getHash();
         }
 
         this.hash = StringUtil.applySha256(this.toHash());
@@ -33,8 +35,13 @@ public class Block implements Serializable {
         genTime = time;
     }
 
+    public double getGenTime() {
+        return genTime;
+    }
+
     public String toHash() {
         return "Block:\n" +
+                "Created by miner # " + minerNumber + "\n" +
                 "Id: " + id + "\n" +
                 "Timestamp: " + timeStamp + "\n" +
                 "Magic number: " + magicNumber + "\n" +
@@ -44,6 +51,7 @@ public class Block implements Serializable {
 
     String toValidate() {
         return "Block:\n" +
+                "Created by miner # " + minerNumber + "\n" +
                 "Id: " + id + "\n" +
                 "Timestamp: " + timeStamp + "\n" +
                 "Magic number: " + magicNumber + "\n" +
@@ -57,6 +65,6 @@ public class Block implements Serializable {
     @Override
     public String toString() {
         return toHash() + "Hash of the block:\n" + hash + "\n" +
-                "aBlock was generating for " + String.format("%.2f", genTime) + " seconds";
+                "Block was generating for " + String.format("%.2f", genTime) + " seconds";
     }
 }
